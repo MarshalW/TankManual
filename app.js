@@ -48,34 +48,35 @@ function savekImageFile() {
         res.setEncoding('binary');
         var imageData = '';
 
-        res.on('data', function (data) {//图片加载到内存变量
-            imageData += data;
-        }).on('end', function () {//加载完毕保存图片
-            fs.writeFile('tank.png', imageData, 'binary', function (err) {
-                if (err) throw err;
-                console.log('file saved');
+        res.on('data',
+            function (data) {//图片加载到内存变量
+                imageData += data;
+            }).on('end', function () {//加载完毕保存图片
+                fs.writeFile('tank.png', imageData, 'binary', function (err) {
+                    if (err) throw err;
+                    console.log('file saved');
 
-                saveToDb();
+                    saveToDb();
+                });
             });
-        });
     });
 }
 
-function saveToDb(){
-    var server=new mongodb.Server('dev.witmob.com',27017),
-        connect=new mongodb.Db('test',server);
+function saveToDb() {
+    var server = new mongodb.Server('marshal.witmob.com', 27017),
+        connect = new mongodb.Db('test', server);
 
-    connect.open(function(err,db){
-        db.collection('books',function(err,collection){
-            collection.find(function(err,cursor){
-                cursor.each(function(err,doc){
-                    if(doc){
-                        console.log('doc.title:'+doc.title);
+    connect.open(function (err, db) {
+        db.collection('books', function (err, collection) {
+            collection.find(function (err, cursor) {
+                cursor.each(function (err, doc) {
+                    if (doc) {
+                        console.log('doc.title:' + doc.title);
                     }
                 });
             });
 
-//            collection.insert(tankBook);
+//           collection.insert(tankBook);
         });
     });
 }
