@@ -8,6 +8,7 @@
 //声明所需依赖库的对象
 var $ = require('jquery'),
     fs = require('fs'),
+    mongodb = require('mongodb'),
     http = require('http');
 
 //http参数对象
@@ -53,7 +54,28 @@ function savekImageFile() {
             fs.writeFile('tank.png', imageData, 'binary', function (err) {
                 if (err) throw err;
                 console.log('file saved');
+
+                saveToDb();
             });
+        });
+    });
+}
+
+function saveToDb(){
+    var server=new mongodb.Server('dev.witmob.com',27017),
+        connect=new mongodb.Db('test',server);
+
+    connect.open(function(err,db){
+        db.collection('books',function(err,collection){
+            collection.find(function(err,cursor){
+                cursor.each(function(err,doc){
+                    if(doc){
+                        console.log('doc.title:'+doc.title);
+                    }
+                });
+            });
+
+//            collection.insert(tankBook);
         });
     });
 }
