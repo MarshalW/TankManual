@@ -105,14 +105,14 @@ function saveToDb(imageData) {
             console.log('delete mytank.png');
         });
 
-var gridStore = new GridStore(connect, 'mytank.png', 'w');
-gridStore.open(function (err, gridStore) {//打开
-    gridStore.write(imageData, function () {
-        gridStore.close(function (err, result) {
-            console.log('save binary to gridfs');
+        var gridStore = new GridStore(connect, 'mytank.png', 'w');
+        gridStore.open(function (err, gridStore) {//打开
+            gridStore.write(imageData, function () {
+                gridStore.close(function (err, result) {
+                    console.log('save binary to gridfs');
+                });
+            });
         });
-    });
-});
 
 
 //var gridStore = new GridStore(connect, "tank.png", "w");
