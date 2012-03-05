@@ -9,7 +9,8 @@
 var $ = require('jquery'),
     fs = require('fs'),
     mongodb = require('mongodb'),
-    http = require('http');
+    GridStore = mongodb.GridStore;
+http = require('http');
 
 //http参数对象
 var options = {
@@ -55,15 +56,14 @@ function savekImageFile() {
                 fs.writeFile('tank.png', imageData, 'binary', function (err) {
                     if (err) throw err;
                     console.log('file saved');
-
-                    saveToDb();
+                    saveToDb(imageData);
                 });
             });
     });
 }
 
-function saveToDb() {
-    var server = new mongodb.Server('marshal.witmob.com', 27017),
+function saveToDb(imageData) {
+    var server = new mongodb.Server('dev.witmob.com', 27017),
         connect = new mongodb.Db('test', server);
 
     connect.open(function (err, db) {
@@ -76,7 +76,56 @@ function saveToDb() {
                 });
             });
 
-//           collection.insert(tankBook);
+            //collection.insert(tankBook);
+        });
+
+
+        var gridStore = new GridStore(connect, 'tank.txt', 'w+');//创建文件
+        gridStore.open(function (err, gridStore) {//打开
+            gridStore.write('world! \n', function (err, gridStore) {//写入文本
+                gridStore.close(function (err, result) {
+                    console.log('close, write end');//写入后的操作
+                });
+            });
+        });
+
+        var gridStore = new GridStore(connect, 'tank.txt', 'r');//只读方式
+        gridStore.open(function (err, gridStore) {//打开
+            console.log('contentType:' + gridStore.contentType);
+            console.log("uploadDate: " + gridStore.uploadDate);
+            console.log("chunkSize: " + gridStore.chunkSize);
+            console.log("metadata: " + gridStore.metadata);
+        });
+
+        GridStore.read(connect, 'tank.txt', function (err, data) {
+            console.log('data:' + data);
+        });
+
+        GridStore.unlink(connect, 'mytank.png', function () {
+            console.log('delete mytank.png');
+        });
+
+var gridStore = new GridStore(connect, 'mytank.png', 'w');
+gridStore.open(function (err, gridStore) {//打开
+    gridStore.write(imageData, function () {
+        gridStore.close(function (err, result) {
+            console.log('save binary to gridfs');
         });
     });
+});
+
+
+//var gridStore = new GridStore(connect, "tank.png", "w");
+//gridStore.writeFile('tank.png', function () {
+//    console.log('write file.');
+//});
+    });
+
+//    console.log('grid store:'+gridStore);
+
+    var gridStore = new GridStore(connect, "tank.png", "w");
+//    gridStore.writeFile('tank.png', function () {
+//        console.log('write file ok.');
+//    });
+
 }
