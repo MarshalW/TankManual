@@ -63,7 +63,7 @@ function savekImageFile() {
 }
 
 function saveToDb(imageData) {
-    var server = new mongodb.Server('dev.witmob.com', 27017),
+    var server = new mongodb.Server('marshal.easymorse.com', 27017),
         connect = new mongodb.Db('test', server);
 
     connect.open(function (err, db) {
