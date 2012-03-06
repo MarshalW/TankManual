@@ -55,7 +55,7 @@ body {
     height: 150px;
     margin-top: 28px;
     -webkit-transform: translate3d(0, 0, 0);
-    background: rgba(255, 255, 255,1);
+    background: rgb(255, 229, 26);
     border: 1px solid #000000
 }
 
