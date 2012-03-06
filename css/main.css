@@ -1,15 +1,18 @@
 @CHARSET "utf-8";
 
 body {
-    /*margin: 0px;*/
-    /*margin-top:20px;*/
+    margin: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(1,1,1,0.1);
+    overflow: hidden;
 }
 
 .app {
-    /*height: 748px;*/
-    /*width: 1024px;*/
-    /*margin: 0px auto;*/
-    /*overflow: hidden;*/
-    background: rgba(1,1,1,0.1);
+    width: 600px;
+    height: 400px;
+    margin: 20px auto;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    background: rgba(1,1,1,0.4);
 }
