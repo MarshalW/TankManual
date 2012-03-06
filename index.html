@@ -13,40 +13,31 @@
 </head>
 <body>
 <div class="app" id="myApp">
-    <div class="pageScroll">
-        <div class="pages" id="myPage"></div>
+    <div class="pages">
+        <div class="pageScroll"></div>
+        <div class="pageSnapScroll" id="mySnapScroll">
+        </div>
     </div>
 </div>
 
 <script>
-    var myApp=$('#myApp');
-    myApp.css({
-        'width':'1024px',
-        'height':768-20+'px'
+    var snapImages = ['s1.jpg', 's2.jpg', 's3.jpg'];
+    var snapScroll = $('#mySnapScroll');
+    snapScroll.css({
+//        'width':'700px'
     });
 
-    var images=['a1.jpg','a2.jpg','a3.jpg'];
-    var myPage=$('#myPage');
-    var scale=748/768;
+    var chapterSnap = $('<div class="chapterSnap"></div>');
+    chapterSnap.appendTo(snapScroll);
 
-    myPage.css({
-        'width':1024*images.length+'px',
-        'height':'748px'
-    });
 
-    for(var i=0;i<images.length;i++){
-        var page=$('<div class="page"></div>');
-        page.css({
-            'width':'1024px',
-            'height':768-20+'px'
+    for (var i = 0; i < 20; i++) {
+        var pageSnap = $('<div class="pageSnap"></div>');
+        pageSnap.css({
+            'left':i * 180 +220+ 'px'
         });
-        page.appendTo(myPage);
-
-        var image=new Image();
-        image.src='image/'+images[i];
-        $(image).appendTo(page);
+        pageSnap.appendTo(snapScroll);
     }
-//    myPage.html('my app height:'+myApp.height());
 </script>
 </body>
 </html>
