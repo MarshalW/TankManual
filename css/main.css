@@ -9,8 +9,8 @@ body {
 }
 
 .app {
-    width: 600px;
-    height: 400px;
+    width: 400px;
+    height: 300px;
     margin: 20px auto;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
