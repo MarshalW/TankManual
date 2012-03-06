@@ -32,7 +32,7 @@ body {
 .pageSnapScroll {
     position: absolute;
     top: 520px;
-    height: 180px;
+    height: 182px;
     width: 1024px;
     background: rgba(1, 1, 1, 0.2);
     overflow-x: scroll;
@@ -53,7 +53,7 @@ body {
     position: absolute;
     width: 180px;
     height: 150px;
-    margin-top: 29px;
+    margin-top: 28px;
     -webkit-transform: translate3d(0, 0, 0);
     background: rgba(255, 255, 255,1);
     border: 1px solid #000000
